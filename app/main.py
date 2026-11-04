@@ -6,7 +6,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import RequestResponseEndpoint
 
 from app.config import settings
-from app.routers import applications, drafts, health, jobs, matches, resume, search
+from app.routers import (
+    applications,
+    drafts,
+    export,
+    health,
+    jobs,
+    matches,
+    resume,
+    search,
+)
 
 
 logging.basicConfig(level=logging.INFO)
@@ -29,6 +38,7 @@ app.include_router(resume.router)
 app.include_router(matches.router)
 app.include_router(applications.router)
 app.include_router(drafts.router)
+app.include_router(export.router)
 
 
 @app.middleware("http")

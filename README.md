@@ -171,6 +171,8 @@ uvicorn app.main:app --reload --host 127.0.0.1
 
 Open `http://127.0.0.1:8000/docs` for the interactive API reference. The API is implemented phase-by-phase from [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). The old CSV CLI workflow remains available through `run_agent.py`, but it is not maintained. Use the API as the supported workflow; legacy scripts read or write CSV files and do not update the SQLite database.
 
+Export stored jobs with `GET /export/jobs.csv`. The download includes UTF-8 BOM encoding and spreadsheet-formula-safe cells; the optional `is_active` query parameter filters active or inactive jobs.
+
 The SQLite database defaults to `data/job_agent.db`. Configure `DATABASE_URL`, `MAX_UPLOAD_MB`, or `ALLOWED_ORIGIN` in `.env` as needed; use `.env.example` as a reference. Database and resume files are git-ignored.
 
 Initialize or update the API database before starting the backend:
