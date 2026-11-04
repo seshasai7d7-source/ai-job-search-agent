@@ -16,7 +16,7 @@ VALID_STATUSES = [
 def main():
     if len(sys.argv) < 3:
         print(
-            'Usage: python update_application.py "job title" "status"'
+            'Usage: python legacy/update_application.py "job title" "status"'
         )
         print("Valid statuses:", ", ".join(VALID_STATUSES))
         return

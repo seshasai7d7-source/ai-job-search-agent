@@ -35,11 +35,14 @@ app/
     job_store.py, applications.py, drafting.py
   sources/base.py, greenhouse.py, lever.py, playwright_source.py
 dashboard/app.py
+legacy/
+README.md
+job_tracker.py, update_application.py, job_dashboard.py, inspect_job.py
 data/
 tests/
 ```
 
-Keep the existing CLI working while functionality moves into this structure.
+The scripts under `legacy/` are retained for reference, are not maintained, and read or write the old CSV files rather than the SQLite database. The API is the supported job and application workflow. Keep the remaining root-level CLI scripts working while functionality moves into this structure.
 
 ## Data model
 

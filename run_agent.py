@@ -8,9 +8,9 @@ STEPS = [
     ("Fetch and filter jobs", [sys.executable, "run_search.py"]),
     ("Analyze job descriptions", [sys.executable, "-m", "job_agent.analyzer"]),
     ("Generate recommendations", [sys.executable, "-m", "job_agent.recommendations"]),
-    ("Update application tracker", [sys.executable, "job_tracker.py"]),
+    ("Update application tracker", [sys.executable, "legacy/job_tracker.py"]),
     ("Generate grouped recommendations", [sys.executable, "group_recommendations.py"]),
-    ("Generate dashboard", [sys.executable, "job_dashboard.py"]),
+    ("Generate dashboard", [sys.executable, "legacy/job_dashboard.py"]),
 ]
 
 

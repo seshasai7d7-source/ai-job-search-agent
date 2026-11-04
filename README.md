@@ -87,6 +87,12 @@ ai-job-search-agent/
 │   └── ...
 ├── docs/
 │   └── PROJECT_BRIEF.md
+├── legacy/
+│   ├── README.md
+│   ├── job_tracker.py
+│   ├── update_application.py
+│   ├── job_dashboard.py
+│   └── inspect_job.py
 │
 ├── config.yaml
 ├── requirements.txt
@@ -94,14 +100,10 @@ ai-job-search-agent/
 ├── run_search.py
 ├── run_agent.py
 ├── group_recommendations.py
-├── job_tracker.py
-├── update_application.py
 ├── update_eligibility.py
-├── inspect_job.py
-├── job_dashboard.py
 ```
 
-The legacy `job_agent` CLI modules remain available during migration. Their filters, skill extraction, and resume parser delegate to the implementations under `app/services/`.
+The old CSV scripts in `legacy/` are not maintained and are replaced by the API. They read or write CSV files in the repository root and do not update the SQLite database. The legacy `job_agent` modules remain available during migration; their filters, skill extraction, and resume parser delegate to implementations under `app/services/`.
 
 ## Setup
 
@@ -167,7 +169,7 @@ Start the FastAPI backend from the project root:
 uvicorn app.main:app --reload --host 127.0.0.1
 ```
 
-Open `http://127.0.0.1:8000/docs` for the interactive API reference. The API is implemented phase-by-phase from [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). The existing CLI workflows remain available.
+Open `http://127.0.0.1:8000/docs` for the interactive API reference. The API is implemented phase-by-phase from [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). The old CSV CLI workflow remains available through `run_agent.py`, but it is not maintained. Use the API as the supported workflow; legacy scripts read or write CSV files and do not update the SQLite database.
 
 The SQLite database defaults to `data/job_agent.db`. Configure `DATABASE_URL`, `MAX_UPLOAD_MB`, or `ALLOWED_ORIGIN` in `.env` as needed; use `.env.example` as a reference. Database and resume files are git-ignored.
 
@@ -197,10 +199,10 @@ python scripts/import_csv_to_db.py --jobs-csv jobs.csv --applications-csv applic
 
 After checking the counts, remove `--dry-run` to import. Legacy `Applied` rows are downgraded to `Application Prepared` unless `--confirm-legacy-applied` is supplied.
 
-Update application status:
+Legacy CSV application status update (not maintained; use the API instead):
 
 ```bash
-python update_application.py
+python legacy/update_application.py "job title" "status"
 ```
 
 Update eligibility information:
@@ -209,10 +211,10 @@ Update eligibility information:
 python update_eligibility.py
 ```
 
-Generate the dashboard:
+Generate the legacy CSV dashboard (not maintained; use the Streamlit API client instead):
 
 ```bash
-python job_dashboard.py
+python legacy/job_dashboard.py
 ```
 
 Run tests:

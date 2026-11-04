@@ -11,7 +11,7 @@ REPORT_FILE = Path("job_dashboard.txt")
 def main():
     if not TRACKER_FILE.exists():
         print(f"Tracker not found: {TRACKER_FILE}")
-        print("Run job_tracker.py first.")
+        print("Run legacy/job_tracker.py first.")
         return
 
     df = pd.read_csv(TRACKER_FILE, dtype=str).fillna("")
