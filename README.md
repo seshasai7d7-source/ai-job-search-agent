@@ -31,6 +31,7 @@ An AI job discovery, filtering, skills-matching, and application-tracking system
 - Pandas
 - FastAPI REST API
 - Uvicorn ASGI server
+- Next.js, React, and TypeScript frontend
 - SQLAlchemy 2.x and SQLite
 - Pydantic Settings
 - Python Dotenv
@@ -47,65 +48,15 @@ An AI job discovery, filtering, skills-matching, and application-tracking system
 
 ```text
 ai-job-search-agent/
-│
-├── app/
-│   ├── main.py
-│   ├── config.py
-│   ├── database.py
-│   ├── models.py
-│   ├── schemas.py
-│   ├── routers/
-│   ├── services/
-│   │   ├── applications.py
-│   │   ├── drafting.py
-│   │   ├── filters.py
-│   │   ├── job_store.py
-│   │   ├── matching.py
-│   │   ├── resume_models.py
-│   │   ├── resume_parser.py
-│   │   ├── resume_parsing.py
-│   │   ├── search.py
-│   │   └── skills.py
-│   └── sources/
-├── dashboard/
-│   └── app.py
-├── job_agent/
-│   ├── sources/
-│   │   ├── greenhouse.py
-│   │   ├── lever.py
-│   │   └── ashby.py
-│   ├── __init__.py
-│   ├── analyzer.py
-│   ├── filters.py
-│   ├── models.py
-│   ├── recommendations.py
-│   ├── relevance.py
-│   ├── resume_parser.py
-│   ├── storage.py
-│
-├── tests/
-│   ├── conftest.py
-│   ├── test_core.py
-│   └── ...
-├── docs/
-│   └── PROJECT_BRIEF.md
-├── legacy/
-│   ├── README.md
-│   ├── job_tracker.py
-│   ├── update_application.py
-│   ├── job_dashboard.py
-│   └── inspect_job.py
-│
-├── config.yaml
-├── requirements.txt
+├── FE/                 # Next.js web application
+├── BE/                 # FastAPI API, Python CLI, migrations, and tests
+├── docs/               # Shared project documentation
+├── .github/            # Repository workflows
 ├── .gitignore
-├── run_search.py
-├── run_agent.py
-├── group_recommendations.py
-├── update_eligibility.py
+└── README.md
 ```
 
-The old CSV scripts in `legacy/` are not maintained and are replaced by the API. They read or write CSV files in the repository root and do not update the SQLite database. The legacy `job_agent` modules remain available during migration; their filters, skill extraction, and resume parser delegate to implementations under `app/services/`.
+The old CSV scripts in `BE/legacy/` are not maintained and are replaced by the API. They read or write CSV files and do not update the SQLite database. The legacy `BE/job_agent` modules remain available during migration; their filters, skill extraction, and resume parser delegate to implementations under `BE/app/services/`.
 
 ## Setup
 
@@ -119,7 +70,7 @@ cd ai-job-search-agent
 ### 2. Create a virtual environment
 
 ```bash
-python -m venv venv
+python -m venv .venv
 ```
 
 ### 3. Activate the environment
@@ -127,18 +78,19 @@ python -m venv venv
 Windows PowerShell:
 
 ```powershell
-.\venv\Scripts\Activate.ps1
+.\.venv\Scripts\Activate.ps1
 ```
 
 ### 4. Install dependencies
 
 ```bash
+cd BE
 pip install -r requirements.txt
 ```
 
 ## Configuration
 
-Update `config.yaml` with:
+From `BE/`, update `config.yaml` with:
 
 - Companies and their Greenhouse or Lever board identifiers.
 - Target job titles.
@@ -151,6 +103,7 @@ Update `config.yaml` with:
 Run the complete workflow:
 
 ```bash
+cd BE
 python run_agent.py
 ```
 
@@ -165,21 +118,23 @@ The workflow performs:
 
 ## Run the FastAPI Backend
 
-Start the FastAPI backend from the project root:
+Start the FastAPI backend from `BE/`:
 
 ```bash
+cd BE
 uvicorn app.main:app --reload --host 127.0.0.1
 ```
 
-Open `http://127.0.0.1:8000/docs` for the interactive API reference. The API is implemented phase-by-phase from [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). The old CSV CLI workflow remains available through `run_agent.py`, but it is not maintained. Use the API as the supported workflow; legacy scripts read or write CSV files and do not update the SQLite database.
+Open `http://127.0.0.1:8000/docs` for the interactive API reference. The API is implemented phase-by-phase from [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md). The old CSV CLI workflow remains available through `BE/run_agent.py`, but it is not maintained. Use the API as the supported workflow; legacy scripts read or write CSV files and do not update the SQLite database.
 
 Export stored jobs with `GET /export/jobs.csv`. The download includes UTF-8 BOM encoding and spreadsheet-formula-safe cells; the optional `is_active` query parameter filters active or inactive jobs.
 
-The SQLite database defaults to `data/job_agent.db`. Configure `DATABASE_URL`, `MAX_UPLOAD_MB`, or `ALLOWED_ORIGIN` in `.env` as needed; use `.env.example` as a reference. Database and resume files are git-ignored.
+The SQLite database defaults to `BE/data/job_agent.db`. Configure `DATABASE_URL`, `MAX_UPLOAD_MB`, or `ALLOWED_ORIGIN` in `BE/.env` as needed; use `BE/.env.example` as a reference. Database and resume files are git-ignored.
 
 Initialize or update the API database before starting the backend:
 
 ```bash
+cd BE
 alembic upgrade head
 ```
 
@@ -188,6 +143,7 @@ The API logs only the HTTP method, URL path (without query parameters), response
 Run the Streamlit API client separately:
 
 ```bash
+cd BE
 streamlit run dashboard/app.py
 ```
 
@@ -195,9 +151,20 @@ The dashboard calls the API at `http://127.0.0.1:8000` by default. It never read
 
 ## Additional Commands
 
+The Next.js frontend is in `FE/`. Start the backend as described above, then open a separate terminal:
+
+```powershell
+cd FE
+npm ci
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000). Frontend checks are `npm run lint`, `npm test`, and `npm run build`.
+
 Import the legacy jobs and application tracker CSVs into the database. Start with a dry run; a real run creates a timestamped database backup before writing:
 
 ```bash
+cd BE
 python scripts/import_csv_to_db.py --jobs-csv jobs.csv --applications-csv application_tracker.csv --dry-run
 ```
 
@@ -206,24 +173,28 @@ After checking the counts, remove `--dry-run` to import. Legacy `Applied` rows a
 Legacy CSV application status update (not maintained; use the API instead):
 
 ```bash
+cd BE
 python legacy/update_application.py "job title" "status"
 ```
 
 Update eligibility information:
 
 ```bash
+cd BE
 python update_eligibility.py
 ```
 
 Generate the legacy CSV dashboard (not maintained; use the Streamlit API client instead):
 
 ```bash
+cd BE
 python legacy/job_dashboard.py
 ```
 
 Run tests:
 
 ```bash
+cd BE
 pytest
 ```
 
@@ -236,7 +207,7 @@ The FastAPI API reports `skills_overlap` as the percentage of unique, recognized
 Build and run the API locally with a persistent database volume:
 
 ```bash
-docker build -t ai-job-search-agent .
+docker build -t ai-job-search-agent ./BE
 docker run --rm -p 127.0.0.1:8000:8000 -v job-agent-data:/app/data ai-job-search-agent
 ```
 
@@ -270,7 +241,7 @@ Generated reports and personal tracking data are excluded from version control.
 - Add more public job-board integrations.
 - Improve matching with semantic similarity and embeddings.
 - Add alerts for newly discovered jobs.
-- Build a web dashboard using FastAPI and a frontend framework.
+- Improve the frontend and expand its automated test coverage.
 - Expand automated test coverage.
 - Add continuous integration.
 

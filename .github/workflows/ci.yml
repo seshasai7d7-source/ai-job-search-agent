@@ -20,11 +20,14 @@ jobs:
         with:
           python-version: "3.14"
           cache: pip
+          cache-dependency-path: BE/requirements.txt
 
       - name: Install dependencies
+        working-directory: BE
         run: python -m pip install -r requirements.txt pytest
 
       - name: Run tests
+        working-directory: BE
         run: python -m pytest -q
 
   docker:
@@ -36,7 +39,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build image
-        run: docker build --tag job-agent-api:ci .
+        run: docker build --file BE/Dockerfile --tag job-agent-api:ci ./BE
 
       - name: Check image contents
         run: |
