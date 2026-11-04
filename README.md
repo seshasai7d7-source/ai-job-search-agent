@@ -1,5 +1,7 @@
 # AI Job Search Agent
 
+![CI](https://github.com/seshasai7d7-source/ai-job-search-agent/actions/workflows/ci.yml/badge.svg)
+
 An AI job discovery, filtering, skills-matching, and application-tracking system built with Python. It collects public job listings, evaluates opportunities against a reviewed candidate profile, and provides a dashboard for managing the job search.
 
 ## Features
