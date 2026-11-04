@@ -1,0 +1,10 @@
+title,company,location,url,description,source,application_status,application_date,follow_up_date,india_eligibility,fresher_eligibility,eligibility_notes,experience_requirement,application_eligibility
+Synthetic Applied Job,Fixture Co,India,https://example.invalid/job/existing,Fixture description,Greenhouse,Applied,,,,,,,,
+Synthetic Untouched Job,Fixture Co,India,https://example.invalid/job/untouched,Fixture description,Greenhouse,Not Reviewed,,,,,,,,
+Synthetic Eligibility Job,Fixture Co,India,https://example.invalid/job/eligibility,Fixture description,Greenhouse,Not Reviewed,,,Eligible,,,,Synthetic application eligibility
+Synthetic Verify Job,Fixture Co,India,https://example.invalid/job/verify,Fixture description,Greenhouse,Needs Verification,,,Not Verified,Not Verified,check official listing,0-1 Years,
+Synthetic Ready Job,Fixture Co,India,https://example.invalid/job/ready,Fixture description,Greenhouse,Ready to Apply,,,,,,,,
+Synthetic Rejected Job,Fixture Co,India,https://example.invalid/job/rejected,Fixture description,Greenhouse,Rejected,2026-01-02,2026-01-09,,,,,,
+Synthetic Closed Job,Fixture Co,India,https://example.invalid/job/closed,Fixture description,Greenhouse,Closed,,,,,,,,
+Synthetic Unknown Job,Fixture Co,India,https://example.invalid/job/unknown,Fixture description,Greenhouse,Maybe Later,,,,,,,,
+Synthetic Missing URL App,Fixture Co,India,,Fixture description,Greenhouse,Rejected,,,,,,,,

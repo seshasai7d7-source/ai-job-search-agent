@@ -189,6 +189,14 @@ The dashboard calls the API at `http://127.0.0.1:8000` by default. It never read
 
 ## Additional Commands
 
+Import the legacy jobs and application tracker CSVs into the database. Start with a dry run; a real run creates a timestamped database backup before writing:
+
+```bash
+python scripts/import_csv_to_db.py --jobs-csv jobs.csv --applications-csv application_tracker.csv --dry-run
+```
+
+After checking the counts, remove `--dry-run` to import. Legacy `Applied` rows are downgraded to `Application Prepared` unless `--confirm-legacy-applied` is supplied.
+
 Update application status:
 
 ```bash

@@ -1,0 +1,3 @@
+title,company,location,url,description,source,skill_score
+Synthetic Existing Job,Fixture Co,Remote - India,https://example.invalid/job/existing,Fixture description,Greenhouse,91
+Synthetic Missing URL Job,Fixture Co,India,,Fixture description,Greenhouse,88

@@ -1,3 +1,8 @@
+from sqlalchemy.orm import Session
+
+from app.models import Application, ApplicationEvent
+
+
 ALLOWED_NEXT = {
     "Interested": {"Application Prepared", "Applied", "Rejected"},
     "Application Prepared": {"Interested", "Applied", "Rejected"},
@@ -23,3 +28,36 @@ def check_transition(
         raise RuleViolation(
             "Applied requires confirmed_by_user=true: confirm you submitted on the employer's website."
         )
+
+
+def create_imported_application(
+    db: Session,
+    *,
+    job_id: int,
+    status: str,
+    notes: str,
+    confirmed_by_user: bool = False,
+) -> Application:
+    application = Application(
+        job_id=job_id,
+        status="Interested",
+        notes=notes,
+    )
+    db.add(application)
+    db.flush()
+
+    if status != application.status:
+        check_transition(application.status, status, confirmed_by_user)
+        application.status = status
+
+    db.add(
+        ApplicationEvent(
+            application_id=application.id,
+            from_status="",
+            to_status=status,
+            confirmed_by_user=confirmed_by_user,
+            note="Imported from legacy CSV",
+        )
+    )
+    db.flush()
+    return application
