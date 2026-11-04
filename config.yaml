@@ -1,0 +1,130 @@
+
+search:
+  roles:
+    - Python Developer
+    - Python Engineer
+    - Backend Developer
+    - Backend Engineer
+    - Junior Backend Engineer
+    - Software Engineer
+    - Software Development Engineer
+    - Associate Software Engineer
+    - Junior Software Engineer
+    - AI Engineer
+    - AI/ML Engineer
+    - Machine Learning Engineer
+    - Generative AI Engineer
+    - Graduate Engineer
+    - Early Career Software Engineer
+
+  locations:
+    - India
+    - Bengaluru
+    - Bangalore
+    - Hyderabad
+    - Chennai
+    - Pune
+    - Mumbai
+    - Delhi
+    - Noida
+    - Gurugram
+    - Gurgaon
+    - Kolkata
+    - Ahmedabad
+    - Coimbatore
+    - Kochi
+    - Jaipur
+    - Remote India
+
+  experience_keywords:
+    - fresher
+    - entry level
+    - junior
+    - graduate
+    - new grad
+    - new graduate
+    - early career
+    - associate
+    - university graduate
+    - recent graduate
+    - 0-1 years
+    - 0 to 1 years
+    - 0-2 years
+    - 0 to 2 years
+
+  max_results_per_source: 100
+
+companies:
+  greenhouse:
+    - name: "Stripe"
+      board_token: "stripe"
+    - name: "Datadog"
+      board_token: "datadog"
+    - name: "Figma"
+      board_token: "figma"
+    - name: "Cloudflare"
+      board_token: "cloudflare"
+    - name: "DRW"
+      board_token: "drweng"
+    - name: "Nextdoor"
+      board_token: "nextdoor"
+    - name: "NewsBreak"
+      board_token: "newsbreak"
+    - name: "Sezzle"
+      board_token: "sezzle"
+    - name: "Orion Innovation"
+      board_token: "orioninnovation"
+    - name: "PathAI"
+      board_token: "pathai"
+
+  lever:
+    - name: "Wealthfront"
+      slug: "wealthfront"
+    - name: "Contentsquare"
+      slug: "contentsquare"
+    - name: "GoHighLevel"
+      slug: "gohighlevel"
+
+  ashby:
+    - name: "Ashby"
+      board_name: "ashby"
+
+skills:
+  # Programming languages
+  - Python
+  - Java
+  - JavaScript
+  - SQL
+
+  # Backend development
+  - FastAPI
+  - Flask
+  - Django
+  - REST API
+  - REST APIs
+  - Microservices
+
+  # Databases
+  - PostgreSQL
+  - SQLAlchemy
+  - MySQL
+  - MongoDB
+
+  # AI and Generative AI
+  - RAG
+  - LLM
+  - Generative AI
+  - Machine Learning
+  - Deep Learning
+  - LangChain
+  - LangGraph
+  - ChromaDB
+  - pgvector
+  - Vector Database
+
+  # Testing and development tools
+  - Pytest
+  - Unit Testing
+  - Git
+  - Docker
+  - CI/CD

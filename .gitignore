@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+
+# Virtual environments
+venv/
+venv314/
+.env
+.venv/
+data/
+*.db
+*.pdf
+
+# IDE
+.vscode/
+.idea/
+
+# Personal job tracking data
+application_tracker.csv
+
+# Generated reports
+jobs.csv
+analyzed_jobs.csv
+recommended_jobs.csv
+grouped_recommendations.csv
+job_dashboard.txt
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Generated analysis output
+ai_analyzed_jobs.csv
+
+# Backup files
+*_backup.py

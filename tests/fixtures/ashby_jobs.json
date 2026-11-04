@@ -1,0 +1,19 @@
+{
+  "jobs": [
+    {
+      "title": "Backend Engineer",
+      "location": "Remote - India",
+      "descriptionPlain": "Build reliable services.",
+      "jobUrl": "https://jobs.ashbyhq.com/ashby/example",
+      "publishedAt": "2026-10-15T00:00:00Z",
+      "isListed": true
+    },
+    {
+      "title": "Unlisted Role",
+      "location": "Remote",
+      "descriptionPlain": "Not currently listed.",
+      "jobUrl": "https://jobs.ashbyhq.com/ashby/unlisted",
+      "isListed": false
+    }
+  ]
+}
