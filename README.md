@@ -238,7 +238,7 @@ docker build -t ai-job-search-agent .
 docker run --rm -p 127.0.0.1:8000:8000 -v job-agent-data:/app/data ai-job-search-agent
 ```
 
-The container applies Alembic migrations before starting Uvicorn. Configure optional settings with environment variables; do not copy `.env` or resume files into the image.
+The container applies Alembic migrations before starting Uvicorn. It runs as a non-root user, checks `/health`, and stores SQLite data under the mounted `/app/data` volume. The build context excludes local CSVs, databases, PDFs, tests, and environment files. Configure optional settings with environment variables; do not copy `.env` or resume files into the image.
 
 ## Output Files
 
